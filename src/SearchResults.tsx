@@ -3,7 +3,7 @@ import { getSearchResults } from './api';
 import Item from './components/Item';
 import type { State } from './types/state';
 
-function App() {
+function SearchResults() {
   const [state, setState] = useState<State<number[]>>({
     status: 'loading',
   });
@@ -45,4 +45,4 @@ function App() {
   );
 }
 
-export default App;
+export default SearchResults;
