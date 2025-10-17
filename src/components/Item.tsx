@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getArtObject, type ArtObject } from '../api';
 import type { State } from '../types/state';
+import { addToFavorites, loadFavorites, removeFromFavorites } from '../storage';
 
 type Props = {
   objectID: number;
@@ -28,6 +29,10 @@ export default function Item(props: Props) {
       });
   }, [objectID]);
 
+  // TODO this should be cached to avoid calling localStorage repeatedly
+  const favorites = loadFavorites();
+  const [isFavorite, setFavorite] = useState(favorites.includes(objectID));
+
   if (state.status === 'loading') {
     return <h3>Loading object...</h3>;
   }
@@ -46,6 +51,16 @@ export default function Item(props: Props) {
     objectURL,
   } = state.data;
 
+  const onClickFavorite = () => {
+    const isFavoriteUpdated = !isFavorite;
+    setFavorite(isFavoriteUpdated);
+    if (isFavoriteUpdated) {
+      addToFavorites(objectID);
+    } else {
+      removeFromFavorites(objectID);
+    }
+  };
+
   return (
     <div>
       {primaryImageSmall ? (
@@ -60,6 +75,9 @@ export default function Item(props: Props) {
       <div>{objectDate}</div>
       <div>{medium}</div>
       <div>{department}</div>
+      <button onClick={onClickFavorite}>
+        {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+      </button>
     </div>
   );
 }
