@@ -18,10 +18,15 @@ type SearchResults = {
   total: number;
 };
 
-// TODO implement pagination
-export function getSearchResults() {
+const ITEMS_PER_PAGE = 15;
+
+export function getSearchResults(page: number = 0) {
   return request<SearchResults>('/search?hasImages=true&q=painting').then(
-    (collection) => collection.objectIDs?.slice(0, 15) || [],
+    (collection) => {
+      const start = page * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      return collection.objectIDs?.slice(start, end) || [];
+    },
   );
 }
 

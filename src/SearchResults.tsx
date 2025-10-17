@@ -7,6 +7,8 @@ function SearchResults() {
   const [state, setState] = useState<State<number[]>>({
     status: 'loading',
   });
+  const [isLoadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     getSearchResults()
@@ -36,11 +38,37 @@ function SearchResults() {
     return <h2>No results</h2>;
   }
 
+  const onClickLoadMore = () => {
+    setPage(page + 1);
+    setLoadingMore(true);
+    getSearchResults(page + 1)
+      .then((list) => {
+        setState({
+          status: 'success',
+          data: [...state.data, ...list],
+        });
+      })
+      .catch((error) => {
+        setState({
+          status: 'error',
+          error,
+        });
+      })
+      .finally(() => {
+        setLoadingMore(false);
+      });
+  };
+
   return (
     <>
       {state.data.map((objectID) => (
         <Item key={objectID} objectID={objectID} />
       ))}
+      {isLoadingMore ? (
+        <div>Loading...</div>
+      ) : (
+        <button onClick={onClickLoadMore}>Load more</button>
+      )}
     </>
   );
 }
