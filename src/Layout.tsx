@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router';
+import DarkModeToggle from './components/DarkModeToggle';
 
 export default function Layout() {
   return (
@@ -7,6 +8,7 @@ export default function Layout() {
       <nav>
         <Link to="/">Search</Link>
         <Link to="/favorites">Favorites</Link>
+        <DarkModeToggle />
       </nav>
       <Outlet />
     </>
