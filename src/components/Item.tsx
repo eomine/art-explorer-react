@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getArtObject, type ArtObject } from '../api';
+import { getArtObject, type ArtObject } from '../utils/api';
 import type { State } from '../types/state';
-import { addToFavorites, loadFavorites, removeFromFavorites } from '../storage';
+import {
+  addToFavorites,
+  loadFavorites,
+  removeFromFavorites,
+} from '../utils/storage';
 
 type Props = {
   objectID: number;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getSearchResults } from './api';
+import { getSearchResults } from './utils/api';
 import Item from './components/Item';
 import type { State } from './types/state';
 
