@@ -26,7 +26,13 @@ export function getSearchResults() {
 }
 
 export type ArtObject = {
+  artistDisplayName: string;
+  department: string;
+  medium: string;
+  objectDate: string;
   objectID: number;
+  objectURL: string;
+  primaryImage: string;
   primaryImageSmall: string;
   title: string;
 };

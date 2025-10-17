@@ -36,7 +36,16 @@ export default function Item(props: Props) {
     return <h3>Failed to load data: {state.error}</h3>;
   }
 
-  const { primaryImageSmall, title } = state.data;
+  const {
+    primaryImageSmall,
+    title,
+    artistDisplayName,
+    objectDate,
+    medium,
+    department,
+    objectURL,
+  } = state.data;
+
   return (
     <div>
       {primaryImageSmall ? (
@@ -44,6 +53,13 @@ export default function Item(props: Props) {
       ) : (
         'No image available'
       )}
+      <div>
+        <a href={objectURL}>{title}</a>
+      </div>
+      <div>{artistDisplayName}</div>
+      <div>{objectDate}</div>
+      <div>{medium}</div>
+      <div>{department}</div>
     </div>
   );
 }
