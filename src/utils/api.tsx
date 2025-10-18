@@ -20,8 +20,8 @@ type SearchResults = {
 
 const ITEMS_PER_PAGE = 15;
 
-export function getSearchResults(page: number = 0) {
-  return request<SearchResults>('/search?hasImages=true&q=painting').then(
+export function getSearchResults(query: string, page: number = 0) {
+  return request<SearchResults>(`/search?hasImages=true&q=${query}`).then(
     (collection) => {
       const start = page * ITEMS_PER_PAGE;
       const end = start + ITEMS_PER_PAGE;

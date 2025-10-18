@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getSearchResults } from './utils/api';
-import Item from './components/Item';
-import type { State } from './types/state';
+import { useParams } from 'react-router';
+import type { State } from '../types/state';
+import { getSearchResults } from '../utils/api';
+import Item from './Item';
 
 function SearchResults() {
+  const params = useParams();
+  const query = params.query ?? 'painting';
+
   const [state, setState] = useState<State<number[]>>({
     status: 'loading',
   });
@@ -11,7 +15,8 @@ function SearchResults() {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    getSearchResults()
+    setState({ status: 'loading' });
+    getSearchResults(query)
       .then((list) => {
         setState({
           status: 'success',
@@ -24,7 +29,7 @@ function SearchResults() {
           error,
         });
       });
-  }, []);
+  }, [query]);
 
   if (state.status === 'loading') {
     return <h2>Loading search results...</h2>;
@@ -41,7 +46,7 @@ function SearchResults() {
   const onClickLoadMore = () => {
     setPage(page + 1);
     setLoadingMore(true);
-    getSearchResults(page + 1)
+    getSearchResults(query, page + 1)
       .then((list) => {
         setState({
           status: 'success',

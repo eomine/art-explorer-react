@@ -6,7 +6,7 @@ export default function Layout() {
     <>
       <h1>The Met Art Museum Art Explorer</h1>
       <nav>
-        <Link to="/">Search</Link>
+        <Link to="/">Home</Link>
         <Link to="/favorites">Favorites</Link>
         <DarkModeToggle />
       </nav>
