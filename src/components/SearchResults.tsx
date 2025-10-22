@@ -65,16 +65,20 @@ function SearchResults() {
   };
 
   return (
-    <>
-      {state.data.map((objectID) => (
-        <Item key={objectID} objectID={objectID} />
-      ))}
-      {isLoadingMore ? (
-        <div>Loading...</div>
-      ) : (
-        <button onClick={onClickLoadMore}>Load more</button>
-      )}
-    </>
+    <div className="p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4">
+        {state.data.map((objectID) => (
+          <Item key={objectID} objectID={objectID} />
+        ))}
+      </div>
+      <button
+        className="cursor-pointer bg-gray-300 dark:bg-gray-700 px-4 py-2 w-full"
+        onClick={onClickLoadMore}
+        disabled={isLoadingMore}
+      >
+        {isLoadingMore ? 'Loading...' : 'Load more'}
+      </button>
+    </div>
   );
 }
 

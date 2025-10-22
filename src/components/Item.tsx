@@ -66,20 +66,29 @@ export default function Item(props: Props) {
   };
 
   return (
-    <div>
-      {primaryImageSmall ? (
-        <img src={primaryImageSmall} alt={title} />
-      ) : (
-        'No image available'
-      )}
-      <div>
-        <a href={objectURL}>{title}</a>
+    <div className="p-4">
+      <div className="bg-gray-100 dark:bg-gray-900 text-gray-500 min-h-64 mb-2 flex items-center justify-center">
+        {primaryImageSmall ? (
+          <img className="mb-2" src={primaryImageSmall} alt={title} />
+        ) : (
+          'No image available'
+        )}
       </div>
-      <div>{artistDisplayName}</div>
-      <div>{objectDate}</div>
-      <div>{medium}</div>
-      <div>{department}</div>
-      <button onClick={onClickFavorite}>
+      <div className="font-bold text-lg leading-[1.2] mb-1">
+        <a href={objectURL} className="underline">
+          {title}
+        </a>
+      </div>
+      <div className="font-bold mb-1">{artistDisplayName}</div>
+      <div className="text-sm mb-1">{objectDate}</div>
+      <div className="text-gray-800 dark:text-gray-400 text-sm">{medium}</div>
+      <div className="text-gray-800 dark:text-gray-400 text-sm mb-2">
+        {department}
+      </div>
+      <button
+        className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-950 cursor-pointer px-4 py-2 text-xs"
+        onClick={onClickFavorite}
+      >
         {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
       </button>
     </div>

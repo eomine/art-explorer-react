@@ -14,14 +14,20 @@ export default function SearchForm() {
   const query = params.query ?? 'painting';
 
   return (
-    <form onSubmit={onSubmitSearch}>
+    <form
+      className="bg-gray-100 dark:bg-gray-900 px-8 py-4 flex gap-2"
+      onSubmit={onSubmitSearch}
+    >
       <input
         type="text"
         name="query"
         placeholder="Search for art objects..."
         defaultValue={query}
+        className="border-1 border-gray-300 dark:border-gray-700 px-2 py-1"
       ></input>
-      <button>Search</button>
+      <button className="cursor-pointer bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 px-4">
+        Search
+      </button>
     </form>
   );
 }

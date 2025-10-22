@@ -22,8 +22,8 @@ export default function DarkModeToggle() {
   const onClickToggle = () => setDark(!isDark);
 
   return (
-    <button onClick={onClickToggle}>
-      {isDark ? 'Disable Dark Mode' : 'Enable Dark Mode'}
+    <button className="cursor-pointer ml-auto text-xs" onClick={onClickToggle}>
+      Dark Mode: {isDark ? 'On' : 'Off'}
     </button>
   );
 }
