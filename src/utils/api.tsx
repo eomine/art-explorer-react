@@ -18,20 +18,13 @@ type SearchResponse = {
   total: number;
 };
 
-const ITEMS_PER_PAGE = 15;
-
-export function getSearchResults(
-  query: string,
-  page: number,
-  departmentId?: string,
-) {
+export function getSearchResults(query: string, departmentId?: string) {
   let url = `/search?hasImages=true&q=${query}`;
   if (departmentId) url += `&departmentId=${departmentId}`;
-  return request<SearchResponse>(url).then((response) => {
-    const start = page * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    return response.objectIDs?.slice(start, end) || [];
-  });
+
+  return request<SearchResponse>(url).then(
+    (response) => response.objectIDs || [],
+  );
 }
 
 export type ArtObject = {

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { getArtObject, type ArtObject } from '../utils/api';
-import type { State } from '../types/state';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { getArtObject } from '../utils/api';
 import {
   addToFavorites,
   loadFavorites,
@@ -13,36 +13,27 @@ type Props = {
 
 export default function Item(props: Props) {
   const { objectID } = props;
-  const [state, setState] = useState<State<ArtObject>>({
-    status: 'loading',
-  });
 
-  useEffect(() => {
-    getArtObject(objectID)
-      .then((data) => {
-        setState({
-          status: 'success',
-          data,
-        });
-      })
-      .catch((error) => {
-        setState({
-          status: 'error',
-          error,
-        });
-      });
-  }, [objectID]);
+  const { data, error, isError, isLoading } = useQuery({
+    queryKey: ['item', objectID],
+    queryFn: () => getArtObject(objectID),
+  });
 
   // TODO this should be cached to avoid calling localStorage repeatedly
   const favorites = loadFavorites();
   const [isFavorite, setFavorite] = useState(favorites.includes(objectID));
 
-  if (state.status === 'loading') {
+  if (isLoading) {
     return <h3>Loading object...</h3>;
   }
 
-  if (state.status === 'error') {
-    return <h3>Failed to load data: {state.error}</h3>;
+  if (isError) {
+    return (
+      <>
+        <h3>Failed to load data</h3>
+        {typeof error === 'string' && <h4>{error}</h4>}
+      </>
+    );
   }
 
   const {
@@ -53,7 +44,7 @@ export default function Item(props: Props) {
     medium,
     department,
     objectURL,
-  } = state.data;
+  } = data;
 
   const onClickFavorite = () => {
     const isFavoriteUpdated = !isFavorite;
