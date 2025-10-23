@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router';
-import Favorites from './Favorites.tsx';
-import Home from './Home.tsx';
 import Layout from './Layout.tsx';
-import PageNotFound from './PageNotFound.tsx';
+import Favorites from './pages/Favorites.tsx';
+import Home from './pages/Home.tsx';
+import PageNotFound from './pages/PageNotFound.tsx';
 
 export default function App() {
   return (

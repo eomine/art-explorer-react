@@ -1,5 +1,5 @@
-import Item from './components/Item';
-import { loadFavorites } from './utils/storage';
+import Item from '../components/Item';
+import { loadFavorites } from '../utils/storage';
 
 export default function Favorites() {
   const favorites = loadFavorites();
