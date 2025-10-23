@@ -1,6 +1,8 @@
-function loadFavorites(): number[] {
+function loadFavorites(): Promise<number[]> {
   const rawValue = localStorage.getItem('favorites');
-  return JSON.parse(rawValue || '[]');
+  const data = JSON.parse(rawValue || '[]');
+  // returns a Promise for React Query
+  return new Promise((resolve) => resolve(data));
 }
 
 function saveFavorites(favorites: number[]) {
@@ -8,23 +10,28 @@ function saveFavorites(favorites: number[]) {
   localStorage.setItem('favorites', json);
 }
 
-function addToFavorites(id: number) {
-  const favorites = loadFavorites();
-  if (favorites.includes(id)) {
-    console.log(`Object ID ${id} is already a favorite.`);
-    return;
-  }
-  saveFavorites([...favorites, id]);
+async function addToFavorites(id: number) {
+  const favorites = await loadFavorites();
+  return new Promise((resolve, reject) => {
+    if (favorites.includes(id)) {
+      reject(`Object ID ${id} is already a favorite.`);
+    }
+    const favoritesUpdated = [...favorites, id];
+    saveFavorites(favoritesUpdated);
+    resolve(favoritesUpdated);
+  });
 }
 
-function removeFromFavorites(id: number) {
-  const favorites = loadFavorites();
-  if (!favorites.includes(id)) {
-    console.log(`Object ID ${id} is not a favorite.`);
-    return;
-  }
-  favorites.splice(favorites.indexOf(id), 1);
-  saveFavorites(favorites);
+async function removeFromFavorites(id: number) {
+  const favorites = await loadFavorites();
+  return new Promise((resolve, reject) => {
+    if (!favorites.includes(id)) {
+      reject(`Object ID ${id} is not a favorite.`);
+    }
+    favorites.splice(favorites.indexOf(id), 1);
+    saveFavorites(favorites);
+    resolve(favorites);
+  });
 }
 
 export { loadFavorites, addToFavorites, removeFromFavorites };

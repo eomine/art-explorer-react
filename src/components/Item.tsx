@@ -1,5 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getArtObject } from '../utils/api';
 import {
   addToFavorites,
@@ -19,9 +18,24 @@ export default function Item(props: Props) {
     queryFn: () => getArtObject(objectID),
   });
 
-  // TODO this should be cached to avoid calling localStorage repeatedly
-  const favorites = loadFavorites();
-  const [isFavorite, setFavorite] = useState(favorites.includes(objectID));
+  const { data: favorites } = useQuery({
+    queryKey: ['favorites'],
+    queryFn: () => loadFavorites(),
+  });
+
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: (operation: 'add' | 'remove') => {
+      return operation === 'add'
+        ? addToFavorites(objectID)
+        : removeFromFavorites(objectID);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['favorites'] });
+    },
+  });
+
+  const isFavorite = favorites?.includes(objectID);
 
   if (isLoading) {
     return <h3>Loading object...</h3>;
@@ -48,12 +62,7 @@ export default function Item(props: Props) {
 
   const onClickFavorite = () => {
     const isFavoriteUpdated = !isFavorite;
-    setFavorite(isFavoriteUpdated);
-    if (isFavoriteUpdated) {
-      addToFavorites(objectID);
-    } else {
-      removeFromFavorites(objectID);
-    }
+    mutate(isFavoriteUpdated ? 'add' : 'remove');
   };
 
   return (
