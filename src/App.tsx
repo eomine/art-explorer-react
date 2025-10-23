@@ -10,6 +10,10 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/search/:query" element={<Home />} />
+        <Route
+          path="/search/:query/department/:departmentId"
+          element={<Home />}
+        />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>

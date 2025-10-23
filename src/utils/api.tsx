@@ -13,21 +13,25 @@ function request<T>(endpoint: string) {
     });
 }
 
-type SearchResults = {
+type SearchResponse = {
   objectIDs?: number[];
   total: number;
 };
 
 const ITEMS_PER_PAGE = 15;
 
-export function getSearchResults(query: string, page: number = 0) {
-  return request<SearchResults>(`/search?hasImages=true&q=${query}`).then(
-    (collection) => {
-      const start = page * ITEMS_PER_PAGE;
-      const end = start + ITEMS_PER_PAGE;
-      return collection.objectIDs?.slice(start, end) || [];
-    },
-  );
+export function getSearchResults(
+  query: string,
+  page: number,
+  departmentId?: string,
+) {
+  let url = `/search?hasImages=true&q=${query}`;
+  if (departmentId) url += `&departmentId=${departmentId}`;
+  return request<SearchResponse>(url).then((response) => {
+    const start = page * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    return response.objectIDs?.slice(start, end) || [];
+  });
 }
 
 export type ArtObject = {
@@ -44,4 +48,19 @@ export type ArtObject = {
 
 export function getArtObject(objectID: number) {
   return request<ArtObject>(`/objects/${objectID}`);
+}
+
+export type Department = {
+  departmentId: number;
+  displayName: string;
+};
+
+type DepartmentsResponse = {
+  departments: Department[];
+};
+
+export function getDepartments() {
+  return request<DepartmentsResponse>(`/departments`).then((response) => {
+    return response.departments;
+  });
 }

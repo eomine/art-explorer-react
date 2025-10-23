@@ -7,6 +7,7 @@ import Item from './Item';
 function SearchResults() {
   const params = useParams();
   const query = params.query ?? 'painting';
+  const { departmentId } = params;
 
   const [state, setState] = useState<State<number[]>>({
     status: 'loading',
@@ -16,7 +17,7 @@ function SearchResults() {
 
   useEffect(() => {
     setState({ status: 'loading' });
-    getSearchResults(query)
+    getSearchResults(query, 0, departmentId)
       .then((list) => {
         setState({
           status: 'success',
@@ -29,7 +30,7 @@ function SearchResults() {
           error,
         });
       });
-  }, [query]);
+  }, [query, departmentId]);
 
   if (state.status === 'loading') {
     return <h2>Loading search results...</h2>;
@@ -46,7 +47,7 @@ function SearchResults() {
   const onClickLoadMore = () => {
     setPage(page + 1);
     setLoadingMore(true);
-    getSearchResults(query, page + 1)
+    getSearchResults(query, page + 1, departmentId)
       .then((list) => {
         setState({
           status: 'success',
