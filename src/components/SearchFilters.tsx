@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import { getDepartments } from '../utils/api';
+import ErrorMessage from './ErrorMessage';
 import Loading from './Loading';
 
 export default function SearchFilters() {
@@ -17,12 +18,7 @@ export default function SearchFilters() {
   }
 
   if (isError) {
-    return (
-      <>
-        <h3>Failed to load data</h3>
-        {typeof error === 'string' && <h4>{error}</h4>}
-      </>
-    );
+    return <ErrorMessage error={error} />;
   }
 
   return (

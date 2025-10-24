@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import ErrorMessage from '../components/ErrorMessage';
 import Item from '../components/Item';
 import Loading from '../components/Loading';
 import { loadFavorites } from '../utils/storage';
@@ -19,12 +20,7 @@ export default function Favorites() {
   }
 
   if (isError) {
-    return (
-      <>
-        <h3>Failed to load data</h3>
-        {typeof error === 'string' && <h4>{error}</h4>}
-      </>
-    );
+    return <ErrorMessage error={error} />;
   }
 
   if (favorites.length === 0) {

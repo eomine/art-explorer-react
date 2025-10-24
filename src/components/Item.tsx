@@ -6,6 +6,7 @@ import {
   removeFromFavorites,
 } from '../utils/storage';
 import Loading from './Loading';
+import ErrorMessage from './ErrorMessage';
 
 type Props = {
   objectID: number;
@@ -43,12 +44,7 @@ export default function Item(props: Props) {
   }
 
   if (isError) {
-    return (
-      <>
-        <h3>Failed to load data</h3>
-        {typeof error === 'string' && <h4>{error}</h4>}
-      </>
-    );
+    return <ErrorMessage error={error} />;
   }
 
   const {
