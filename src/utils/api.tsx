@@ -19,8 +19,11 @@ type SearchResponse = {
 };
 
 export function getSearchResults(query: string, departmentId?: string) {
-  let url = `/search?hasImages=true&q=${query}`;
-  if (departmentId) url += `&departmentId=${departmentId}`;
+  const params = new URLSearchParams();
+  params.set('hasImages', 'true');
+  params.set('q', query);
+  if (departmentId) params.set('departmentId', departmentId);
+  const url = `/search?${params}`;
 
   return request<SearchResponse>(url).then(
     (response) => response.objectIDs || [],
