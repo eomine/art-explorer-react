@@ -5,7 +5,10 @@ export default function Loading() {
   const array = Array.from({ length: numberOfDots }, (_, i) => i);
 
   return (
-    <div className="flex gap-1 items-center justify-center min-w-16 min-h-16">
+    <div
+      className="flex gap-1 items-center justify-center min-w-16 min-h-16"
+      data-testid="loading"
+    >
       {array.map((i) => (
         <motion.div
           key={i}
