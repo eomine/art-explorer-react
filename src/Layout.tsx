@@ -1,7 +1,17 @@
-import { Link, Outlet } from 'react-router';
+import { Link, Outlet, useLocation } from 'react-router';
 import DarkModeToggle from './components/DarkModeToggle';
 
 export default function Layout() {
+  const { pathname } = useLocation();
+  const exploreClasses = [
+    'hover:underline',
+    pathname === '/' || pathname.includes('search') ? 'font-bold' : null,
+  ].join(' ');
+  const favoritesClasses = [
+    'hover:underline',
+    pathname === '/favorites' ? 'font-bold' : null,
+  ].join(' ');
+
   return (
     <>
       <header className="bg-red text-white px-8 py-4 flex gap-4 items-end">
@@ -20,11 +30,17 @@ export default function Layout() {
             </svg>
           </a>
         </h1>
-        <Link to="/">Explore</Link>
-        <Link to="/favorites">Favorites</Link>
+        <Link to="/" className={exploreClasses}>
+          Explore
+        </Link>
+        <Link to="/favorites" className={favoritesClasses}>
+          Favorites
+        </Link>
         <DarkModeToggle />
       </header>
-      <Outlet />
+      <div className="px-8 py-4">
+        <Outlet />
+      </div>
     </>
   );
 }

@@ -35,25 +35,25 @@ function SearchResults() {
   }
 
   if (objectIDs.length === 0) {
-    return <h2>No results</h2>;
+    return <h2 className="font-bold">No results</h2>;
   }
 
   const visibleObjectIDs = objectIDs.slice(0, (page + 1) * ITEMS_PER_PAGE);
 
   return (
-    <div className="p-4">
+    <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4">
         {visibleObjectIDs.map((objectID) => (
           <Item key={objectID} objectID={objectID} />
         ))}
       </div>
       <button
-        className="cursor-pointer bg-gray-300 dark:bg-gray-700 px-4 py-2 w-full"
+        className="cursor-pointer bg-gray-300 dark:bg-gray-700 my-8 px-4 py-2 w-full"
         onClick={onClickLoadMore}
       >
         Load more
       </button>
-    </div>
+    </>
   );
 }
 

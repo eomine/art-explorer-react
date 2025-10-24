@@ -63,8 +63,8 @@ export default function Item(props: Props) {
   };
 
   return (
-    <div className="p-4">
-      <div className="bg-gray-100 dark:bg-gray-900 text-gray-500 min-h-64 mb-2 flex items-center justify-center">
+    <div className="p-4 border border-gray-200 dark:border-gray-700 hover:border-gray-300 hover:dark:border-gray-600">
+      <div className="bg-gray-100 dark:bg-gray-700 text-gray-500 min-h-64 mb-2 flex items-center justify-center">
         {primaryImageSmall ? (
           <img className="mb-2" src={primaryImageSmall} alt={title} />
         ) : (

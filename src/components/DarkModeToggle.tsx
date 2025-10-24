@@ -22,7 +22,10 @@ export default function DarkModeToggle() {
   const onClickToggle = () => setDark(!isDark);
 
   return (
-    <button className="cursor-pointer ml-auto text-xs" onClick={onClickToggle}>
+    <button
+      className="border-white border min-w-30 px-2 py-1 cursor-pointer ml-auto font-bold text-xs"
+      onClick={onClickToggle}
+    >
       Dark Mode: {isDark ? 'On' : 'Off'}
     </button>
   );

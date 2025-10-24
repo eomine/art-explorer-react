@@ -5,11 +5,11 @@ export default function Loading() {
   const array = Array.from({ length: numberOfDots }, (_, i) => i);
 
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1 items-center justify-center min-w-16 min-h-16">
       {array.map((i) => (
         <motion.div
           key={i}
-          className="bg-white w-2 h-2"
+          className="bg-gray-800 dark:bg-gray-200 w-2 h-2"
           animate={{ scale: [0.3, 1, 0.3] }}
           transition={{
             delay: i * (1 / numberOfDots),
