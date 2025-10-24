@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { getSearchResults } from '../utils/api';
 import Item from './Item';
+import Loading from './Loading';
 
 function SearchResults() {
   const params = useParams();
@@ -25,7 +26,7 @@ function SearchResults() {
   });
 
   if (isLoading) {
-    return <h2>Loading search results...</h2>;
+    return <Loading />;
   }
 
   if (isError) {

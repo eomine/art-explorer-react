@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import { getDepartments } from '../utils/api';
+import Loading from './Loading';
 
 export default function SearchFilters() {
   const params = useParams();
@@ -12,7 +13,7 @@ export default function SearchFilters() {
   });
 
   if (isLoading) {
-    return <h3>Loading departments...</h3>;
+    return <Loading />;
   }
 
   if (isError) {

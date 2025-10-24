@@ -5,6 +5,7 @@ import {
   loadFavorites,
   removeFromFavorites,
 } from '../utils/storage';
+import Loading from './Loading';
 
 type Props = {
   objectID: number;
@@ -38,7 +39,7 @@ export default function Item(props: Props) {
   const isFavorite = favorites?.includes(objectID);
 
   if (isLoading) {
-    return <h3>Loading object...</h3>;
+    return <Loading />;
   }
 
   if (isError) {

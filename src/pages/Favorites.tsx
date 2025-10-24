@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import Item from '../components/Item';
+import Loading from '../components/Loading';
 import { loadFavorites } from '../utils/storage';
 
 export default function Favorites() {
@@ -14,7 +15,7 @@ export default function Favorites() {
   });
 
   if (isLoading) {
-    return <h2>Loading favorites...</h2>;
+    return <Loading />;
   }
 
   if (isError) {
