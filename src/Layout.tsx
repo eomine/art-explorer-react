@@ -14,6 +14,7 @@ export default function Layout() {
 
   return (
     <>
+      <title>Art Explorer - Explore</title>
       <header className="bg-red text-white px-8 py-4 flex gap-4 items-end">
         <h1 className="p-1">
           <a href="https://www.metmuseum.org/" target="_blank">
