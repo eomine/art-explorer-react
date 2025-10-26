@@ -1,5 +1,7 @@
 # Art Explorer - Desafio Front-end com React + The Met Museum API
 
+_A aplicação está disponível no link: https://art-explorer-react-eomine.vercel.app/_
+
 ## 🌟 Objetivo
 
 Criar uma aplicação web responsiva utilizando **React**, **TypeScript** e **Node.js** (para o backend), com o objetivo de explorar obras de arte da coleção do Metropolitan Museum of Art (The Met). O sistema deve permitir:
